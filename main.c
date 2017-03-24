@@ -40,7 +40,7 @@ int main(int argc, char *argv[])
     testDelete();
     printf("\n\nTesting for Leaks\n");
     soapyWater(); // test for leaks haha
-
+    printf("\n\nNow Cleaning the table\n");
     cleanUp();
 
     printf("===============================");
