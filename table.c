@@ -60,7 +60,6 @@ Boolean insert(char const *const new_string)
             if (newNode->string != NULL)
             {
                 strcpy(newNode->string, new_string);
-                newNode->next = top;
                 top = newNode;
                 numNodes++;
             }
@@ -80,39 +79,37 @@ Boolean delete (char const *const target)
 {
     Boolean deleted = false;
     Node *curr = top;
-
-#ifndef NDEBUG
-    assert(curr != NULL);
-#endif
-
-    Node *prev = NULL;
-
-#ifndef NDEBUG
-    assert(target != NULL);
-    assert(strcmp("", target) != 0);
-#endif
-
-    if (target != NULL && strcmp("", target) != 0)
+    if (curr != NULL)
     {
-        while (curr != NULL && strcmp(target, curr->string) != 0)
+        Node *prev = NULL;
+
+#ifndef NDEBUG
+        assert(target != NULL);
+        assert(strcmp("", target) != 0);
+#endif
+
+        if (target != NULL && strcmp("", target) != 0)
         {
-            prev = curr;
-            curr = curr->next;
-        }
+            while (curr != NULL && strcmp(target, curr->string) != 0)
+            {
+                prev = curr;
+                curr = curr->next;
+            }
 
-        if (curr != NULL)
-        {
-            if (prev != NULL)
-                prev->next = curr->next;
-            else
-                top = curr->next;
+            if (curr != NULL)
+            {
+                if (prev != NULL)
+                    prev->next = curr->next;
+                else
+                    top = curr->next;
 
-            free(curr->string);
+                free(curr->string);
 
-            free(curr);
+                free(curr);
 
-            deleted = true;
-            numNodes--;
+                deleted = true;
+                numNodes--;
+            }
         }
     }
     return deleted;
@@ -133,9 +130,11 @@ Boolean search(char const *const target)
 
         while (curr != NULL && !found)
         {
+            
 #ifndef NDEBUG
             assert(curr->string != NULL);
 #endif
+            
             if (strcmp(target, curr->string) == 0)
             {
                 found = true;
@@ -147,16 +146,21 @@ Boolean search(char const *const target)
             }
         }
     }
-        return found;
-    
+    return found;
 }
 
 // starts a list traversal by getting the data at top
 char *firstItem()
 {
-    traverseNode = top->next;
+    char *item = NULL;
 
-    return top->string;
+    if(top != NULL)
+    {
+        traverseNode = top->next;
+        item = top->string;
+    }
+    
+    return item;
 }
 
 // gets the data at the current traversal node and increments the traversal
@@ -183,7 +187,7 @@ void wipeTable()
 {
     Node *curr = top;
 
-    while(top != NULL && numNodes >= 0)
+    while (top != NULL && numNodes >= 0)
     {
         top = top->next;
         free(curr->string);
