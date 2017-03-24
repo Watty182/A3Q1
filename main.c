@@ -108,7 +108,7 @@ void testSearchF(int size, char *strings[])
 
     int count;
 
-    printf("\n Now testing search for items that should not be in the list\n");
+    printf("\n Now testing search for items that should not be in the list...\n");
 
     for (count = 0; count < size; count++)
     {
@@ -117,13 +117,43 @@ void testSearchF(int size, char *strings[])
 
         if (result)
         {
-            printf("located: %s\n", target);
+            printf("Located: %s\n", target);
             failed++;
         }
         else
         {
             printf("Failed to locate: %s\n", target);
             passed++;
+        }
+    }
+}
+
+// testSearchT(int size, char* strings[]))
+//      Verifies that a certain set of elements are in the list
+void testSearchT(int size, char *strings[])
+{
+    char *target;
+    
+    Boolean result;
+
+    int count;
+
+    printf("\n Now Testing search for items in the list...\n");
+
+    for(count = 0; count < size; count++)
+    {
+        target = strings[i];
+        result = search(target);
+
+        if(result)
+        {
+            printf("Located: %s\n", target);
+            passed++;
+        }
+        else
+        {
+            printf("Failed to locate: %s\n", target);
+            failed++;
         }
     }
 }
@@ -211,4 +241,18 @@ void soapyWater()
 
         currSize--;
     }
+}
+
+// cleanUp() [... so much water... everywhere...]
+//      frees up the entire table
+void cleanUp()
+{
+    wipeTable();
+    currSize = 0;
+    testSize();
+
+    printf("\n Test Results: \n---------------\n");
+    printf("Number of Total Tests Ran: %d\n", passed+failed);
+    printf("Number of Tests Passed: %d\n", passed);
+    printf("Number of Tests Failed: %d\n", failed);
 }
