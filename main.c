@@ -19,8 +19,12 @@ void soapyWater();
 void cleanUp();
 void testSearchT(int size, char *strings[]);
 void testSearchF(int size, char *strings[]);
+void testSize();
 
 //Static Variables eg. test counters
+static int passed;
+static int failed;
+static int currSize;
 
 int main(int argc, char *argv[])
 {
@@ -42,4 +46,86 @@ int main(int argc, char *argv[])
     return EXIT_SUCCESS;
 }
 
-//
+void initialize()
+{
+    passed = 0;
+    failed = 0;
+    currSize = 0;
+}
+
+// testSize(): 
+//      starts a traversal through the list and verifies the size of the list is accurate
+//      increments passed or failed to keep track of tests
+//      prints items in the list for visual verification
+void testSize()
+{
+    char *string;
+    int size;
+
+    printf("\nNow Testing List Size: \n");
+
+    string = firstItem();
+    size = 0;
+    
+    while(string != NULL)
+    {
+        size++;
+        string = nextItem();
+    }
+
+    printf("The size of the list is: %d\n", size);
+
+    if(currSize == size)
+    {
+        passed++;
+    }
+    else
+    {
+        failed++;
+    }
+}
+
+// testEmpty():
+//      tests to see if the list is empty
+void testEmpty()
+{
+    char *empty[1] = {"Nobody Home"};
+
+    testSearchF(1, empty);
+    delete("Node-less");
+
+    testSize();
+}
+
+// testSearchF(int size, char* strings[]):
+//      Verifies that a certain set of elements are not in the List
+
+void testSearchF(int size, char *strings[])
+{
+    char *target;
+
+    Boolean result;
+
+    int count;
+
+    printf("\n Now testing search for items that should not be in the list\n");
+
+    for(count = 0; count < size; count++)
+    {
+        target = strings[i];
+        result = search(target);
+
+        if(result)
+        {
+            printf("located: %s\n", target);
+            failed++;
+        }
+        else
+        {
+            printf("Failed to locate: %s\n", target);
+            passed++;
+        }
+    }
+}
+
+
