@@ -30,18 +30,22 @@ int main(int argc, char *argv[])
 {
     initialize();
 
-    printf("Starting tests now.\n\n");
+    printf("\n\nStarting tests now.\n");
 
+    printf("\n\nTesting bounds of empty list.\n");
     testEmpty();
+    printf("\n\nTesting Inserts\n");
     testInsert();
+    printf("\n\nTesting Deletes\n");
     testDelete();
+    printf("\n\nTesting for Leaks\n");
     soapyWater(); // test for leaks haha
 
     cleanUp();
 
-    printf("=================================");
-    printf("\nProgram completed successfully.\n\t\tRyan Watkins\n");
-    printf("=================================");
+    printf("===============================");
+    printf("\nProgram completed successfully.\n\tRyan Watkins\n");
+    printf("===============================\n");
 
     return EXIT_SUCCESS;
 }
@@ -56,7 +60,7 @@ void initialize()
 // testSize():
 //      starts a traversal through the list and verifies the size of the list is accurate
 //      increments passed or failed to keep track of tests
-//      prints items in the list for visual verification
+//      prints items in the list for visual verification [edit: for debugging]
 void testSize()
 {
     char *string;
@@ -69,6 +73,7 @@ void testSize()
 
     while (string != NULL)
     {
+        //printf("%s\n", string);
         size++;
         string = nextItem();
     }
