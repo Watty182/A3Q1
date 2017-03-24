@@ -34,7 +34,7 @@ Boolean insert(char const *const new_string)
     Node *newNode = NULL;
 
 #ifndef NDEBUG
-    assert(NULL != new_string);
+    assert(mew_string != NULL);
     assert(strcmp("", new_string) != 0); // ensures the string inserted will not be NULL
 #endif
 
@@ -61,12 +61,15 @@ Boolean insert(char const *const new_string)
             if (newNode->string != NULL)
             {
                 strcpy(newNode->string, new_string);
+                newNode->next = top;
+                top = newNode;
                 numNodes++;
             }
         }
     }
     else
     {
+        free(newNode);
         rc = false;
     }
 
@@ -84,6 +87,7 @@ Boolean delete (char const *const target)
 #endif
 
     Node *prev = NULL;
+
 #ifndef NDEBUG
     assert(target != NULL);
     assert(strcmp("", target) != 0);
@@ -105,7 +109,9 @@ Boolean delete (char const *const target)
                 top = curr->next;
 
             free(curr->string);
+
             free(curr);
+
             deleted = true;
             numNodes--;
         }
@@ -144,44 +150,50 @@ Boolean search(char const *const target)
 
         return found;
     }
+}
 
-    // starts a list traversal by getting the data at top
-    char *firstItem()
+// starts a list traversal by getting the data at top
+char *firstItem()
+{
+    traverseNode = top->next;
+
+    return top->string;
+}
+
+// gets the data at the current traversal node and increments the traversal
+char *nextItem()
+{
+    char *item = NULL;
+
+    // no need to go past the end of the list...
+    if (traverseNode != NULL)
     {
-        traverseNode = top->next;
+        item = traverseNode->string;
 
-        return top->string;
+#ifndef NDEBUG
+        assert(item != NULL);
+#endif
+        traverseNode = traverseNode->next;
     }
 
-    // gets the data at the current traversal node and increments the traversal
-    char *nextItem()
-    {
-        char *item = NULL;
+    return item;
+}
 
-        // no need to go past the end of the list...
-        if (traverseNode != NULL)
-        {
-            item = traverseNode->string;
-            traverseNode = traverseNode->next;
-        }
+//will clean the entire list
+void wipeTable()
+{
+    Node *curr = top;
 
-        return item;
-    }
-    //will clean the entire list 
-    void cleanUp(int totalInsert)
+    while(top != NULL && numNodes >= 0)
     {
-        while (delete (firstItem()))
-        {
-            totInsert--;
-        }
-        if ((totInsert == 0) && !delete (firstItem()))
-        {
-            printf("The table is now Free.\n");
-        }
+        top = top->next;
+        free(curr->string);
+
+        curr->string = NULL;
+        free(curr);
+
+        curr = top;
+
+        numNodes--;
     }
-    //will print the results of the inserted words and duplicate words
-    void results(int ins, int dupe)
-    {
-        printf("Number of words inserted: %d\n", ins);
-        printf("Number of dupilicates not inserted: %d\n", dupe);
-    }
+}
