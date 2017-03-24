@@ -28,7 +28,7 @@ static int currSize;
 
 int main(int argc, char *argv[])
 {
-    initalize();
+    initialize();
 
     printf("Starting tests now.\n\n");
 
@@ -112,7 +112,7 @@ void testSearchF(int size, char *strings[])
 
     for (count = 0; count < size; count++)
     {
-        target = strings[i];
+        target = strings[count];
         result = search(target);
 
         if (result)
@@ -142,7 +142,7 @@ void testSearchT(int size, char *strings[])
 
     for(count = 0; count < size; count++)
     {
-        target = strings[i];
+        target = strings[count];
         result = search(target);
 
         if(result)
