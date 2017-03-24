@@ -150,7 +150,7 @@ void testInsert()
     testSearchT(INS_SIZE, insertions);
 
     // search for items we did not insert
-    testSearchFP(1, emptyStrings);
+    testSearchF(1, emptyStrings);
 
     //verify
     testSize();
@@ -182,4 +182,33 @@ void testDelete()
 
     //verify
     testSize();
+}
+
+// soapyWater() (named as such, because that's how you can test something for airtight-ness)
+//      tests the list for any leaks through numerous inserts and deletes
+void soapyWater()
+{
+#define ONE_MILLION_ITEMS 1000000 //Dr. Evil
+    int count;
+
+    char *bubbles[1] = {"bloop"};
+
+    for(count = 0; count < ONE_MILLION_ITEMS; count++)
+    {
+        insert(bubbles[0]);
+
+        currSize++;
+    }
+    //Locate bubbles then verify size
+    testSearchT(1, bubbles);
+    testSize();
+
+    //pop (Read: Delete) all of the bubbles 
+    
+    for(count = 0; count < ONE_MILLION_ITEMS; count++)
+    {
+        delete(bubbles[0]);
+
+        currSize--;
+    }
 }
