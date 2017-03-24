@@ -167,3 +167,21 @@ Boolean search(char const *const target)
 
         return item;
     }
+    //will clean the entire list 
+    void cleanUp(int totalInsert)
+    {
+        while (delete (firstItem()))
+        {
+            totInsert--;
+        }
+        if ((totInsert == 0) && !delete (firstItem()))
+        {
+            printf("The table is now Free.\n");
+        }
+    }
+    //will print the results of the inserted words and duplicate words
+    void results(int ins, int dupe)
+    {
+        printf("Number of words inserted: %d\n", ins);
+        printf("Number of dupilicates not inserted: %d\n", dupe);
+    }
