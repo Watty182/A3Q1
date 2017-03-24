@@ -142,7 +142,7 @@ void testInsert()
 
     for (count = 0; count < INS_SIZE; count++)
     {
-        printf("Inserted: %s", insertions[count]);
+        printf("Inserted: %s\n", insertions[count]);
         insert(insertions[count]);
         currSize++;
     }
@@ -151,6 +151,34 @@ void testInsert()
 
     // search for items we did not insert
     testSearchFP(1, emptyStrings);
+
+    //verify
+    testSize();
+}
+
+// testDelete()
+//      tests deleting items from the list
+void testDelete()
+{
+#define DEL_SIZE 3
+    char *deletions[DEL_SIZE] = {"Item5", "Item3", "Item1"}; //deletes the first, middle, and last items
+    char *stringsLeft[2] = {"Item4", "Item2"};
+
+    int count;
+
+    printf("Now Testing item deletions from the list...\n");
+
+    for(count = 0; count < DEL_SIZE; count++)
+    {
+        printf("Deleted: %s\n", deletions[count]);
+        delete(deletions[count]);
+
+        currSize--;
+    }
+    // search for what is left in the list after deletion
+    testSearchT(2, stringsLeft);
+    // ensure the items we deleted are not in the list
+    testSearchF(DEL_SIZE, deletions);
 
     //verify
     testSize();
