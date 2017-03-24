@@ -4,7 +4,7 @@
 // COURSE: COMP 2160, SECTION: A01
 // INSTRUCTOR: Franklin Bristow
 // ASSIGNMENT: 3, QUESTION: 1
-// 
+//
 // REMARKS: This program extensively tests the implementation of table.c by utilizing table.h
 //          as well as scaffolding
 //-----------------------------------------
@@ -53,7 +53,7 @@ void initialize()
     currSize = 0;
 }
 
-// testSize(): 
+// testSize():
 //      starts a traversal through the list and verifies the size of the list is accurate
 //      increments passed or failed to keep track of tests
 //      prints items in the list for visual verification
@@ -66,8 +66,8 @@ void testSize()
 
     string = firstItem();
     size = 0;
-    
-    while(string != NULL)
+
+    while (string != NULL)
     {
         size++;
         string = nextItem();
@@ -75,7 +75,7 @@ void testSize()
 
     printf("The size of the list is: %d\n", size);
 
-    if(currSize == size)
+    if (currSize == size)
     {
         passed++;
     }
@@ -92,7 +92,7 @@ void testEmpty()
     char *empty[1] = {"Nobody Home"};
 
     testSearchF(1, empty);
-    delete("Node-less");
+    delete ("Node-less");
 
     testSize();
 }
@@ -110,12 +110,12 @@ void testSearchF(int size, char *strings[])
 
     printf("\n Now testing search for items that should not be in the list\n");
 
-    for(count = 0; count < size; count++)
+    for (count = 0; count < size; count++)
     {
         target = strings[i];
         result = search(target);
 
-        if(result)
+        if (result)
         {
             printf("located: %s\n", target);
             failed++;
@@ -128,4 +128,30 @@ void testSearchF(int size, char *strings[])
     }
 }
 
+// testInsert()
+//      tests adding items to the list
+void testInsert()
+{
+#define INS_SIZE 5
+    char *insertions[INS_SIZE] = {"Item5", "Item4", "Item3", "Item2", "Item1"};
+    char *emptyStrings[1] = {"MT"};
 
+    int count;
+
+    printf("\nNow Testing item insertions to the list...\n");
+
+    for (count = 0; count < INS_SIZE; count++)
+    {
+        printf("Inserted: %s", insertions[count]);
+        insert(insertions[count]);
+        currSize++;
+    }
+    // search for items we inserted
+    testSearchT(INS_SIZE, insertions);
+
+    // search for items we did not insert
+    testSearchFP(1, emptyStrings);
+
+    //verify
+    testSize();
+}
