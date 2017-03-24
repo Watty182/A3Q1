@@ -16,6 +16,8 @@ typedef enum BOOL {false, true} Boolean;
 Boolean search(const char *);
 Boolean insert(char const*);
 Boolean delete(const char *);
+void cleanUp(void);
 char * firstItem(void);
 char * nextItem(void);
+
 #endif
