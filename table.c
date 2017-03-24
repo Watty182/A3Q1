@@ -146,9 +146,9 @@ Boolean search(char const *const target)
                 curr = curr->next;
             }
         }
-
-        return found;
     }
+        return found;
+    
 }
 
 // starts a list traversal by getting the data at top
