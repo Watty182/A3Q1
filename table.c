@@ -23,7 +23,6 @@ static Node *traverseNode = NULL;
 
 int size()
 {
-    assert(numNodes != NULL);
     return numNodes;
 }
 
@@ -34,7 +33,7 @@ Boolean insert(char const *const new_string)
     Node *newNode = NULL;
 
 #ifndef NDEBUG
-    assert(mew_string != NULL);
+    assert(new_string != NULL);
     assert(strcmp("", new_string) != 0); // ensures the string inserted will not be NULL
 #endif
 
